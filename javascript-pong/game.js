@@ -190,7 +190,7 @@ Game = {
 
   Runner: {
 
-    initialize: function (id, game, cfg) {
+    initialize: async function (id, game, cfg) {
       this.cfg = Object.extend(game.Defaults || {}, cfg || {}); // use game defaults (if any) and extend with custom cfg (if any)
       this.interval = 1000.0 / this.fps;
       this.canvas = document.getElementById(id);
@@ -218,10 +218,27 @@ Game = {
       clearInterval(this.timer);
     },
 
-    loop: function () {
+    loop: async function () {
       var start = Game.timestamp(); this.update((start - this.lastFrame) / 1000.0); // send dt as seconds
       var middle = Game.timestamp(); this.draw();
       var end = Game.timestamp();
+
+      if (detector && capture.loadedmetadata) {
+
+        const hands = await detector.estimateHands(capture.elt, { flipHorizontal: true })
+
+        if(hands.length == 1){
+          console.log('up')
+          this.game.onkeyup(65)
+          this.game.onkeydown(81)
+        }
+        else {
+          console.log('down')
+          this.game.onkeyup(81)
+          this.game.onkeydown(65)
+        }
+      }
+
       this.lastFrame = start;
     },
 
@@ -259,9 +276,7 @@ Game = {
       result = window.confirm(msg);
       this.start();
       return result;
-    }
-
+    },
     //-------------------------------------------------------------------------
-
-  } // Game.Runner
+  }, // Game.Runner
 } // Game
