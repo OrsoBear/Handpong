@@ -21,8 +21,6 @@ Pong = {
     walls:           'white',
     ball:            'white',
     score:           'white',
-    predictionGuess: 'yellow',
-    predictionExact: 'red'
   },
 
   Images: [
@@ -437,12 +435,6 @@ Pong = {
     draw: function(ctx) {
       ctx.fillStyle = Pong.Colors.walls;
       ctx.fillRect(this.x, this.y, this.width, this.height);
-      if (this.prediction && this.pong.cfg.predictions) {
-        ctx.strokeStyle = Pong.Colors.predictionExact;
-        ctx.strokeRect(this.prediction.x - this.prediction.radius, this.prediction.exactY - this.prediction.radius, this.prediction.radius*2, this.prediction.radius*2);
-        ctx.strokeStyle = Pong.Colors.predictionGuess;
-        ctx.strokeRect(this.prediction.x - this.prediction.radius, this.prediction.y - this.prediction.radius, this.prediction.radius*2, this.prediction.radius*2);
-      }
     },
 
     moveUp:         function() { this.up   = 1; },
