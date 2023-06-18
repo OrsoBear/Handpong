@@ -18,9 +18,9 @@ Pong = {
   },
 
   Colors: {
-    walls:           'white',
-    ball:            'white',
-    score:           'white',
+    walls:           'black',
+    ball:            'black',
+    score:           'black',
   },
 
   Images: [
