@@ -21,7 +21,6 @@ Pong = {
     walls:           'white',
     ball:            'white',
     score:           'white',
-    footprint:       '#333',
     predictionGuess: 'yellow',
     predictionExact: 'red'
   },
@@ -170,9 +169,6 @@ Pong = {
     }
   },
 
-  showStats:       function(on) { this.cfg.stats = on; },
-  showFootprints:  function(on) { this.cfg.footprints = on; this.ball.footprints = []; },
-  showPredictions: function(on) { this.cfg.predictions = on; },
   enableSound:     function(on) { this.cfg.sound = on; },
 
   //=============================================================================
@@ -474,7 +470,6 @@ Pong = {
     },
 
     reset: function(playerNo) {
-      this.footprints = [];
       this.setpos(playerNo == 1 ?   this.maxX : this.minX,  Game.random(this.minY, this.maxY));
       this.setdir(playerNo == 1 ? -this.speed : this.speed, this.speed);
     },
@@ -493,20 +488,6 @@ Pong = {
       this.dyChanged = ((this.dy < 0) != (dy < 0)); // did vertical direction change
       this.dx = dx;
       this.dy = dy;
-    },
-
-    footprint: function() {
-      if (this.pong.cfg.footprints) {
-        if (!this.footprintCount || this.dxChanged || this.dyChanged) {
-          this.footprints.push({x: this.x, y: this.y});
-          if (this.footprints.length > 50)
-            this.footprints.shift();
-          this.footprintCount = 5;
-        }
-        else {
-          this.footprintCount--;
-        }
-      }
     },
 
     update: function(dt, leftPaddle, rightPaddle) {
@@ -548,19 +529,12 @@ Pong = {
 
       this.setpos(pos.x,  pos.y);
       this.setdir(pos.dx, pos.dy);
-      this.footprint();
     },
 
     draw: function(ctx) {
       var w = h = this.radius * 2;
       ctx.fillStyle = Pong.Colors.ball;
       ctx.fillRect(this.x - this.radius, this.y - this.radius, w, h);
-      if (this.pong.cfg.footprints) {
-        var max = this.footprints.length;
-        ctx.strokeStyle = Pong.Colors.footprint;
-        for(var n = 0 ; n < max ; n++)
-          ctx.strokeRect(this.footprints[n].x - this.radius, this.footprints[n].y - this.radius, w, h);
-      }
     }
 
   },
