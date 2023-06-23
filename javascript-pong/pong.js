@@ -78,12 +78,18 @@ Pong = {
 
   stop: function (ask) {
     if (this.playing) {
-      if (!ask || this.runner.confirm('Abandon game in progress ?')) {
+      if(!ask){
         this.playing = false;
         this.leftPaddle.setAuto(false);
         this.rightPaddle.setAuto(false);
         this.runner.showCursor();
-
+      }
+      else if (this.runner.confirm('Abandon game in progress ?')) {
+        this.playing = false;
+        this.leftPaddle.setAuto(false);
+        this.rightPaddle.setAuto(false);
+        this.runner.showCursor();
+        
         document.getElementById('overlay').style.visibility = 'visible'
         document.getElementById('text').innerHTML = 'PREMI SPAZIO PER GIOCARE'
       }
@@ -97,7 +103,7 @@ Pong = {
   goal: function (playerNo) {
     this.sounds.goal();
     this.scores[playerNo] += 1;
-    if (this.scores[playerNo] == 9) {
+    if (this.scores[playerNo] == 1) {
       this.menu.declareWinner(playerNo);
       this.stop();
     }

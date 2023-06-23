@@ -228,12 +228,10 @@ Game = {
         const hands = await detector.estimateHands(capture.elt, { flipHorizontal: true })
 
         if(hands.length == 1){
-          console.log('up')
           this.game.onkeyup(65)
           this.game.onkeydown(81)
         }
         else {
-          console.log('down')
           this.game.onkeyup(81)
           this.game.onkeydown(65)
         }

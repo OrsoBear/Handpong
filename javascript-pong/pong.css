@@ -1,9 +1,3 @@
-body {
-  background-color: blue;
-  font-size: 12pt;
-  padding: 16px;
-}
-
 #unsupported {
   border: 1px solid yellow;
   color: black;

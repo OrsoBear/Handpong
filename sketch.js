@@ -8,10 +8,7 @@ async function setup() {
 	capture.size(640, 480)
 	capture.hide()
 
-	console.log("Carico modello...")
 	detector = await createDetector()
-	console.log("Modello caricato.")
-
 }
 
 async function createDetector() {
